@@ -1,0 +1,32 @@
+services:
+  - type: worker
+    name: hermes-cloud-daemon
+    runtime: python
+    region: frankfurt
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+    autoDeploy: true
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        value: 8327150816:AAGKyJzCZHw3-dDRwctin10AwjJ9uxXglDo
+      - key: TELEGRAM_CHAT_ID
+        value: 7572064021
+      - key: GITHUB_TOKEN_GANGKOR
+        sync: false
+      - key: GITHUB_TOKEN_DANKO145
+        sync: false
+      - key: GITHUB_TOKEN_DANKO5443
+        sync: false
+      - key: GITHUB_TOKEN_DANOPEF
+        sync: false
+      - key: SOLANA_WALLET_GANGKOR
+        value: 3EZnNP2kfmY161XyqnRWEFgtYw6jWFXHnimU5RMqA8g8
+      - key: SOLANA_WALLET_DANKO145
+        value: ExBUfiba8Bmn8PADfKboF7MzpYjv3habpvDx45PdRfJR
+      - key: SOLANA_WALLET_DANKO5443
+        value: kyZ21uBacqU95ctt7Z2pn8en98o4cGxmxGXoB2Vz1hi
+      - key: SOLANA_WALLET_DANOPEF
+        value: 7Zv2Md3NLJtkLJ3HEPMESYWDEwLYW8cvNPqoH1bNj57K
+      - key: CHECK_INTERVAL_SECONDS
+        value: 900
