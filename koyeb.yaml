@@ -1,0 +1,10 @@
+# Koyeb Worker Configuration
+name: hermes-cloud-daemon
+type: worker
+strategy: docker
+docker:
+  dockerfile: Dockerfile
+env:
+  TELEGRAM_BOT_TOKEN: 8327150816:AAGKyJzCZHw3-dDRwctin10AwjJ9uxXglDo
+  TELEGRAM_CHAT_ID: "7572064021"
+  CHECK_INTERVAL_SECONDS: "900"
