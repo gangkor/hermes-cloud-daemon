@@ -1,0 +1,49 @@
+name: Autonomous Bots Cloud Runners (24/7)
+
+on:
+  schedule:
+    # Run every 30 minutes 24/7 in GitHub cloud
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+jobs:
+  run-bots:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Bot 1 (Bounty Tracker)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN_METHOD1 }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT_GANGKOR }}
+        run: |
+          python3 -c "
+          import os, sys
+          sys.path.insert(0, 'bot1_bounties')
+          import bounty_tracker
+          state = bounty_tracker.load_state()
+          bounty_tracker.monitor_cycle(state)
+          print('Bot 1 cloud cycle complete.')
+          "
+
+      - name: Run Bot 2 (MyZubster Tracker)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN_METHOD2 }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT_GANGKOR }}
+        run: |
+          python3 -c "
+          import os, sys
+          sys.path.insert(0, 'bot2_myzubster')
+          import myzubster_tracker
+          state = myzubster_tracker.load_state()
+          myzubster_tracker.monitor_myzubster(state)
+          print('Bot 2 cloud cycle complete.')
+          "
